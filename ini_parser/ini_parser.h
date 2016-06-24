@@ -1,15 +1,24 @@
 #ifndef QIHOO_INI_PARSER_H_
 #define QIHOO_INI_PARSER_H_
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
 #include <string>
+#include <map>
 
 namespace qh
 {
+
     class INIParser
     {
     public:
-        INIParser();
-        ~INIParser();
+        INIParser() {
+			m_commentSep = ";";	
+		}
+
+        ~INIParser() {
+		}
 
         //! \brief 解析一个磁盘上的INI文件
         //! \param[in] - const std::string & ini_file_path
@@ -37,6 +46,14 @@ namespace qh
         const std::string& Get(const std::string& section, const std::string& key, bool* found);
 
     private:
+		bool HandleLine(const char *begin, const char *end, const std::string& key_value_seperator);
+		void trim(const char **begin, const char **end); 
+		const char* SepToken(const char *begin, const char *end, const std::string& sep);
+		const char* SkipSep(const char* pos, size_t len); 
+
+		std::string m_commentSep;
+		std::string m_getValue;
+		std::map<std::string, std::string> m_iniMap;
     };
 }
 
