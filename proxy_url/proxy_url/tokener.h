@@ -30,7 +30,7 @@ namespace qh
             reset("", 0);
         }
 
-        Tokener( const std::string& s );
+        Tokener( const std::string& s , char lsep, char ksep);
 
         Tokener( const char* ps, const s32 ps_len = -1);
 
@@ -178,11 +178,15 @@ namespace qh
         const char* m_pData;	//! the source text string to be parsed
         const char* m_pCurPos;  //! At first, set it 0
         const char* m_pDataEnd; //!
+		char m_lineSep;
+		char m_keySep;
     };
 
-    inline Tokener::Tokener( const std::string& s )
-    {
+    inline Tokener::Tokener( const std::string& s ,char lsep, char ksep)
+    : m_lineSep(lsep), m_keySep(ksep)
+	{
         reset(s.c_str(), s.length());
+		
     }
 
     inline Tokener::Tokener( const char* ps, const s32 len )
@@ -409,14 +413,13 @@ namespace qh
         *  So, we just skipTo( 0x)0A )
         */
 
-        char c = skipTo( (char)0x0a ); 
-        if ( c == 0 )
-        {
+        char c = skipTo(m_lineSep); 
+        if (c == 0)
             return false;
-        }
 
         // skip the last char of this line, and then go to a new line
-        next(); 
+        if (next() == 0)
+			return false; 
         return true;
     }
 
