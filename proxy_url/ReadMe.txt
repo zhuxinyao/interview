@@ -36,7 +36,7 @@ http://localhost/query.php?name=360&address=beijing
 1. 实现void ProxyURLExtractor::Extract( const KeyItems& keys, const std::string& raw_url, std::string& sub_url )
 
 2. 设待处理字符串总长度为n，key的平均长度m,且在url中共出现k次。
-   空间复杂度为O(n) + O(m)
+   空间复杂度 小于 O(n) + O(m * k)
    时间复杂度为O(n) + k*O(m) (改用字典树实现查找url中的key是否在key_set中，时间复杂度为O(m))
 
 
