@@ -50,7 +50,7 @@ namespace qh
 		return ret;
 	}
 
-		
+	//处理行分割符之间的一行
 	bool INIParser::HandleLine(const char *begin, \
 							   const char *end, \
 							   const std::string& key_value_seperator) {
@@ -84,6 +84,7 @@ namespace qh
 		return true;
 	}
 	
+	//去掉字符串前后空格
 	void INIParser::trim(const char **begin, const char **end) {
 		const char *p1 = *begin, *p2 = *end - 1;
 		while (*p1 == ' ' && p1 <= p2) {
@@ -96,7 +97,7 @@ namespace qh
 		*end = p2 + 1;
 	}
 
-	//
+	//找到并返回从bigin开始，在begin与end之间的第一个出现的分割符 end为空时查找到字符串最后
 	const char* INIParser::SepToken(const char *begin, const char *end, const std::string& sep) {
 		const char *pos = begin;
 		if (end == NULL) {
@@ -115,6 +116,7 @@ namespace qh
 		return pos;
 	}
 
+	//返回指向分割符后下一个字符的指针
 	const char* INIParser::SkipSep(const char* pos, size_t len) {
 		if (*pos == '\0')
 			return NULL;
