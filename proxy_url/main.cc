@@ -14,11 +14,11 @@
 void test_ProxUrlExtractor_Extract1()
 {
     using namespace qh;
-    ProxyURLExtractor::KeyItems keys;
-    keys.insert("a");
-    keys.insert("u");
-    keys.insert("url");
-    keys.insert("query");
+    KeyItems keys;
+    keys.Insert("a");
+    keys.Insert("u");
+    keys.Insert("url");
+    keys.Insert("query");
 
     std::string test_data[][2] = {
         // url                                                                                          suburl,
@@ -67,13 +67,13 @@ void test_ProxUrlExtractor_Extract1()
 void test_ProxUrlExtractor_Extract2()
 {
     using namespace qh;
-    ProxyURLExtractor::KeyItems keys;
-    keys.insert("a");
-    keys.insert("u");
-    keys.insert("url");
-    keys.insert("curl");
-    keys.insert("query");
-    keys.insert("uri");
+    KeyItems keys;
+    keys.Insert("a");
+    keys.Insert("u");
+    keys.Insert("url");
+    keys.Insert("curl");
+    keys.Insert("query");
+    keys.Insert("uri");
 
     std::string test_data[][2] = {
         // url                                                                                          suburl,
@@ -131,7 +131,7 @@ void test_ProxUrlExtractor_Extract2()
     for (size_t i = 0; i < H_ARRAY_SIZE(test_data); i++)
     {
         if (ProxyURLExtractor::Extract(keys, test_data[i][0]) != test_data[i][1]) {
-			//fprintf(stderr, "test failed [%s]\n", test_data[i][0].data());
+			fprintf(stderr, "%d, test failed [%s]\n", i, test_data[i][0].data());
             all_test_ok = false;
             assert(false);
         }

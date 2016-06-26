@@ -2,12 +2,39 @@
 #ifndef PROXY_URL_EXTRACTOR_H_
 #define PROXY_URL_EXTRACTOR_H_
 
+#include <stdlib.h>
+#include <memory.h>
+#include <assert.h>
 #include <string>
-#include <set>
 #include <set>
 
 namespace qh
 {
+	#define DEFAULT_CAP 100
+
+	class TrieNode {
+	public:
+		int m_count;
+		int m_word;
+		TrieNode* m_next[26];
+	};
+	
+	class KeyItems {
+	public:
+		KeyItems();
+		~KeyItems();
+		bool Insert(const char *s);
+		int Find(const char *s) const;	
+
+	private:
+		void Init();
+		TrieNode* CreateNode();
+		
+		TrieNode* m_pRoot;
+		TrieNode* m_pData;
+		size_t m_alloc;
+		size_t m_cap;
+	};
 
     /**
      * \brief 代理url提取类
@@ -16,9 +43,6 @@ namespace qh
      */
     class ProxyURLExtractor
     {
-    public:
-        typedef std::set<std::string/*proxy key*/> KeyItems;
-
     public:
         ProxyURLExtractor();
 

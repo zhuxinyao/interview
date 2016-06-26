@@ -82,8 +82,13 @@ namespace qh
             keysvect.clear();
             StringSplit(line, ",", static_cast<unsigned int>(-1), keysvect);
             assert(keysvect.size() >= 1);
-            keys_set_.insert(keysvect.begin(), keysvect.end());
-            keys_set_.erase("");
+            //keys_set_.insert(keysvect.begin(), keysvect.end());
+            //keys_set_.erase("");
+			for (size_t i = 0; i < keysvect.size(); i++) {
+				if (!keysvect[i].empty()) {
+					keys_set_.Insert(keysvect[i].c_str());
+				}
+			}
         }
 
         ifs.close();
@@ -118,7 +123,7 @@ namespace qh
 			size_t key_pos = raw_url.find_first_of('=', start);
 			if (start < key_pos && key_pos != std::string::npos && key_pos + 1 < stop) {
 				key = raw_url.substr(start, key_pos - start);
-				if (keys.find(key) != keys.end()) {
+				if (keys.Find(key.c_str()) != 0) {
 					sub_url = raw_url.substr(key_pos + 1, stop - key_pos - 1);
 					return;
 				}
@@ -172,5 +177,71 @@ namespace qh
         ProxyURLExtractor::Extract(keys, raw_url, sub_url);
         return sub_url;
     }
+	
+	KeyItems::KeyItems() 
+		: m_alloc(0), m_cap(DEFAULT_CAP) {
+		Init();
+	}
+
+	KeyItems::~KeyItems() {
+		free(m_pData);
+	}
+
+	void KeyItems::Init() {
+		m_pData = (TrieNode* )malloc(sizeof(TrieNode) * m_cap);
+		assert(m_pData != NULL);
+			
+		m_pRoot = CreateNode();
+		assert(m_pRoot != NULL);
+	}
+	
+	TrieNode* KeyItems::CreateNode() {
+		if (m_alloc >= m_cap)
+			return NULL;
+
+		TrieNode* ret = m_pData + m_alloc;
+		m_alloc++;
+		
+		memset(ret, 0, sizeof(TrieNode));
+		ret->m_count = 1;
+		return ret;
+	}
+ 
+	bool KeyItems::Insert(const char *s) {
+		if (m_pRoot == NULL || s == NULL)
+			return false;
+		TrieNode* tmp = m_pRoot;
+		
+		while (*s != '\0') {
+			const int k = *s - 'a';
+			if (tmp->m_next[k] != NULL) {
+				tmp->m_count++;
+			} else {
+				tmp->m_next[k] = CreateNode(); 
+				if (tmp->m_next[k] == NULL)
+					return false;
+			}
+			tmp = tmp->m_next[k];
+			s++;
+		}
+		tmp->m_word++;
+		return true;
+	}
+
+	int KeyItems::Find(const char *s) const {
+		if (m_pRoot == NULL || s == NULL)
+			return 0;
+		TrieNode *tmp = m_pRoot;
+		
+		while (*s != '\0') {
+			const int k = *s - 'a';
+			if (tmp->m_next[k] != NULL)
+				tmp = tmp->m_next[k];
+			else
+				return 0;
+			s++;
+		}
+		return tmp->m_word;
+	}
 }
 
