@@ -33,3 +33,7 @@ Parse ini长度为n 行分割符长度为s  key的个数为k 平均长度为m
 时间复杂度 O(n * s + mk * lg(k))
 空间复杂度 O(n + m * k)
 
+Get 
+时间复杂度 O(m* lg(k))
+空间复杂度 O(m * k)
+
