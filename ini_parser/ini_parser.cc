@@ -5,22 +5,29 @@ namespace qh
 
     bool INIParser::Parse(const std::string& ini_file_path) {
 		FILE *fp = fopen(ini_file_path.c_str(), "r");
+		if (fp == NULL)
+			return false;
+
 		fseek(fp, 0, SEEK_END);
 		size_t fsize = ftell(fp);
 		rewind(fp);
 		char *buffer = (char *)malloc(sizeof(char) * fsize);
 		if (buffer == NULL) {
 			fprintf(stderr, "error: malloc error\n");
+			fclose(fp);
 			return false;
 		}
 		size_t l = fread(buffer, 1, fsize, fp);
 		if (l != fsize) {
 			fprintf(stderr, "error: read error %lu\n", l);
+			fclose(fp);
 			return false;
 		}
 
 		bool ret = Parse(buffer, fsize);
+		
 		free(buffer);
+		fclose(fp);
 		return ret;
 	}
 	

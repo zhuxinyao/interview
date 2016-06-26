@@ -120,6 +120,32 @@ void test6()
 	assert(yy == "");
 }
 
+void test7()
+{
+    qh::INIParser parser;
+    if (!parser.Parse("test.ini")) {
+        assert(false);
+    }
+
+	const std::string& a = parser.Get("name", NULL);
+    assert(a == "John Doe");
+
+    std::string b = parser.Get("organization", NULL);
+	assert(b == "Acme Products");
+	
+	const std::string& xyz = parser.Get("server", NULL);
+    assert(xyz == "192.0.2.42");
+	
+	const std::string& c = parser.Get("port", NULL);
+    assert(c == "143");
+
+	const std::string& yy = parser.Get("file", NULL);
+	assert(yy == "\"acme payroll.dat\"");
+
+	const std::string& x = parser.Get("test", NULL);
+	assert(x == "");
+}
+
 int main(int argc, char* argv[])
 {
     //TODO 在这里添加单元测试，越多越好，代码路径覆盖率越全越好
@@ -132,6 +158,8 @@ int main(int argc, char* argv[])
 	test4();
 	test5();
 	test6();
+	//test read ini files
+	test7();
     return 0;
 }
 
