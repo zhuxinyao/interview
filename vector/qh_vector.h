@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <cstddef>
 #include <iterator>
-#include <initializer_list>
 #include <limits>
 #include <assert.h>
 #include <algorithm>
