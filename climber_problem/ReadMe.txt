@@ -1,3 +1,3 @@
-ÌâÄ¿ÄÚÈİÇëÍ¨¹ıÍ¼Æ¬Á´½ÓÔÄ¶Á£ºhttps://github.com/zieckey/interview/blob/master/climber_problem/The%20problem.png 
-//¿¿¿¿¿O(n * m + l + n) ¿¿¿¿n ¿¿¿¿¿¿¿m ¿¿¿¿¿l
-//¿¿¿¿¿O(n + m)
+é¢˜ç›®å†…å®¹è¯·é€šè¿‡å›¾ç‰‡é“¾æ¥é˜…è¯»ï¼šhttps://github.com/zieckey/interview/blob/master/climber_problem/The%20problem.png 
+æ—¶é—´å¤æ‚åº¦O(n * m + l + n)  å±±çš„ä¸ªæ•°n å¹³å‡è·¨åº¦m  æ€»è·¨åº¦l
+ç©ºé—´å¤æ‚åº¦O(n + m)
