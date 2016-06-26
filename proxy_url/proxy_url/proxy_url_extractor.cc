@@ -109,7 +109,6 @@ namespace qh
 #if 1
         //TODO 请面试者在这里添加自己的代码实现以完成所需功能
 		if (raw_url.empty()) return;
-		std::string key;
 		size_t len = raw_url.length();
 		size_t start = raw_url.find_first_of('?');
 		if (start + 1 == len || start == std::string::npos) 
@@ -122,7 +121,7 @@ namespace qh
 		do {
 			size_t key_pos = raw_url.find_first_of('=', start);
 			if (start < key_pos && key_pos != std::string::npos && key_pos + 1 < stop) {
-				key = raw_url.substr(start, key_pos - start);
+				const std::string& key = raw_url.substr(start, key_pos - start);
 				if (keys.Find(key.c_str()) != 0) {
 					sub_url = raw_url.substr(key_pos + 1, stop - key_pos - 1);
 					return;

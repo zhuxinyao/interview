@@ -33,3 +33,12 @@ http://localhost/query.php?name=360&address=beijing
 2. 算法的空间复杂度
 3. 是否有资源泄露：内存泄露、文件句柄打开而没有关闭等等
 
+1. 实现void ProxyURLExtractor::Extract( const KeyItems& keys, const std::string& raw_url, std::string& sub_url )
+
+2. 设待处理字符串总长度为n，key的平均长度m,且在url中共出现k次。
+   空间复杂度为O(n) + O(m)
+   时间复杂度为O(n) + k*O(m) (改用字典树实现查找url中的key是否在key_set中，时间复杂度为O(m))
+
+
+3. bool ProxyURLExtractor::Initialize( const std::string& param_keys_path )中如果assert条件判断为假，则出错返回，无法关闭文件。
+   可以用valgrind检查有无内存泄露
