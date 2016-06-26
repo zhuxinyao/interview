@@ -52,7 +52,6 @@ int resolve(const char* input)
 		vsum += abs(road[i] - road[i - 1]);
 	}
 	vsum += (road[0] + road[len - 1]);
-	printf ("%d\n", vsum + len);
 	//calculate horizontal dis
 	return (vsum + len);
 }

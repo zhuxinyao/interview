@@ -176,7 +176,8 @@ namespace qh
         ProxyURLExtractor::Extract(keys, raw_url, sub_url);
         return sub_url;
     }
-	
+
+	//implement trie tree	
 	KeyItems::KeyItems() 
 		: m_alloc(0), m_cap(DEFAULT_CAP) {
 		Init();
